@@ -52,7 +52,7 @@ class ParseCSV extends Command
             if ($lineNumber === 1 || ($lineNumber % $batch) === 0) {
                 $data['batch'] = $batch;
 
-                //shift fist line
+                //shift first line
                 if ($lineNumber === 1) {
                     $data['batch'] = $batch - 1;
                 }
