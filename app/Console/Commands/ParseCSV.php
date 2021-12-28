@@ -47,10 +47,16 @@ class ParseCSV extends Command
         $lineNumber = 1;
         $data = [];
         $data['path'] = $path;
-        $data['batch'] = $batch;
 
         while (fgets($file) !== false) {
-            if($lineNumber === 1 || ($lineNumber % $batch) === 0) {
+            if ($lineNumber === 1 || ($lineNumber % $batch) === 0) {
+                $data['batch'] = $batch;
+
+                //shift fist line
+                if ($lineNumber === 1) {
+                    $data['batch'] = $batch - 1;
+                }
+
                 $data['offset'] = ftell($file);
                 dispatch(new parseBatchCsv($data));
                 $lineNumber++;
